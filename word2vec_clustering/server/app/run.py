@@ -12,7 +12,7 @@ def jsonify(module, key_word):
         try:
             vector_list.append((word, module.model[word], module.model.most_similar(word)))
         except:
-            print(word)
+            print("'"+word+"' is not in the dictionary")
             # print(word, module.model[word], module.model.most_similar(word))
             vector_list.append(('error', [0, 0, 0], [('error', 0), ('error', 0), ('error', 0), ('error', 0), ('error', 0)
                                                 , ('error', 0), ('error', 0), ('error', 0), ('error', 0), ('error', 0)]))
@@ -36,7 +36,9 @@ def vectorize(corpus_type='full'):
 
     bacteria, disease, relation = module.get_key_word()
 
-    print(len(bacteria))
+    print('Bacteria Size :', len(bacteria))
+    print('Disease Size :', len(disease))
+    print('Relation Size :', len(relation))
 
     bacteria_vec = jsonify(module, bacteria)
     disease_vec = jsonify(module, disease)

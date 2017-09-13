@@ -1,7 +1,7 @@
 import gensim
 import mysql.connector as msc
 from nltk import word_tokenize
-from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 
 
 class word2vec_module:
@@ -44,12 +44,12 @@ class word2vec_module:
         row = qry.fetchone()
 
 
-        ps = PorterStemmer()
+        lemmatizer = WordNetLemmatizer()
 
         train_docs = list()
         while row is not None:
             try:
-                train_docs.append([ps.stem(word) for word in word_tokenize(' '.join(row))])
+                train_docs.append([lemmatizer.lemmatize(w, 'v') for w in word_tokenize(' '.join(row))])
             except Exception as e:
                 print(e)
                 continue
