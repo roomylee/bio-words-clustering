@@ -58,19 +58,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">&nbsp;AI LAB&nbsp;</a>
+                <a class="navbar-brand active">&nbsp;AI LAB&nbsp;</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/" onclick=location.href="/">통합(Tweet+Reply)</a>
+                        <a href="/" onclick=location.href="/">Full Corpus</a>
                     </li>
                     <li>
-                        <a href="/tweet" onclick=location.href="/tweet">정치인(Tweet)</a>
+                        <a href="/relation" onclick=location.href="/relation">Relation Corpus</a>
                     </li>
                     <li>
-                        <a href="/reply" onclick=location.href="/reply">댓글(Reply)</a>
+                        <a href="/triplet" onclick=location.href="/triplet">Triplet</a>
                     </li>
                 </ul>
             </div>
@@ -82,17 +82,6 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Introduction Row -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">정치적 진영 기반 SNS 텍스트 마이닝</h1>
-                <p>정치인들이 많이 사용하는 SNS인 Twitter의 활동 데이터에 대해 텍스트 마이닝을 통해 정치적 상황에 따른 진영별 감정 상태 변화를 분석하는 모델을 개발하고 분석 및 시각화 도구 개발.</p>
-                <p>정치적 진영에 따른 텍스트 마이닝을 통해 정치적/사회적 상황의 분석이나 상황이 일어난 뒤의 감성 상태의 변화와 사회적 이벤트(대통령 선거, 총선, 부동산경기, 증시등락 등) 발생의 예측이 가능.</p>
-            </div>
-        </div>
-
-
-
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -102,11 +91,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">진영별 사용 단어 분포</h1>
+                <p>정치인들이 많이 사용하는 SNS인 Twitter의 활동 데이터에 대해 텍스트 마이닝을 통해 정치적 상황에 따른 진영별 감정 상태 변화를 분석하는 모델을 개발하고 분석 및 시각화 도구 개발.</p>
                 <div id="container" style="height: 700px"></div>
-                <hr>
-                <div id="container_left" style="height: 700px"></div>
-                <hr>
-                <div id="container_right" style="height: 700px"></div>
             </div>
         </div>
 
@@ -200,7 +186,7 @@
                     hideDelay: 100,
                     formatter: function(chart){
                         var p = this.point;
-                        return '<p style="font-size:15px; font-weight:bold;">[' + p.name + '] ' + p.word + '</p><br>'
+                        return '<p style="font-size:15px; font-weight:bold;">' + p.word + '</p><br>'
                                 + '<p style="font-size:12px;">x:' + p.x + ', y:' + p.y + ', z:' + p.z + '</p>'
                                 + '<br><p style="font-size:13px;"><br><b>[Similar Words]</b><br></p>'
                                 + '<p style="font-size:12px;">'
@@ -217,18 +203,17 @@
                     }                    
                 },
                 series: [{
-                    name: '진보',
+                    name: 'Bacteria',
                     color: 'rgba(59, 150, 237, 0.5)',
-                    data: {{left_data|safe}}
-
+                    data: {{bac|safe}}
                 }, {
-                    name: '보수',
-                    color: 'rgba(237, 77, 59, 0.5)',
-                    data: {{right_data|safe}}
+                    name: 'Disease',
+                    color: 'rgba(0, 77, 59, 0.5)',
+                    data: {{dis|safe}}
                 }, {
-                    name: '진보&보수',
-                    color: 'rgba(58, 232, 130, 0.5)',
-                    data: {{both_data|safe}}
+                    name: 'Relation',
+                    color: 'rgba(237, 77, 200, 0.5)',
+                    data: {{rel|safe}}
                 }],
                 legend:{
                     itemStyle:{
@@ -271,312 +256,6 @@
             });
         </script>
 
-        <hr>
-
-        <!-- Left Chart -->
-        <script type="text/javascript">
-            Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function (color) {
-                return {
-                    radialGradient: {
-                        cx: 0.4,
-                        cy: 0.3,
-                        r: 0.5
-                    },
-                    stops: [
-                        [0, color],
-                        [1, Highcharts.Color(color).brighten(-0.2).get('rgb')]
-                    ]
-                };
-            });
-
-            var left = new Highcharts.Chart('container_left',{
-                chart: {
-                    marginLeft: 100,
-                    marginRight: 100,
-                    marginTop: 120,
-                    marginBottom: 170,
-                    type: 'scatter',
-                    options3d: {
-                        enabled: true,
-                        alpha: 10,
-                        beta: 30,
-                        depth: 600,
-                        viewDistance: 5,
-                        fitToPlot: false,
-                        frame: {
-                            bottom: { size: 1, color: 'rgba(0,0,0,0.02)' },
-                            back: { size: 1, color: 'rgba(0,0,0,0.04)' },
-                            side: { size: 1, color: 'rgba(0,0,0,0.06)' }
-                        }
-                    }
-                },
-                title: {
-                    text: 'Vocabulary Distribution of 진보 진영'
-                },
-                subtitle: {
-                    text: 'Top 100 Frequent words Analysis by Word2Vec'
-                },
-                yAxis: {
-                    title: {
-                        text: "<b>Y-Axis</b>"
-                    }
-                },
-                xAxis: {
-                    title: {
-                        text: "<b>X-Axis</b>"
-                    },
-                    gridLineWidth: 1
-                },
-                zAxis: {
-                    title: {
-                        text: "<b>Z-Axis</b>"
-                    },
-                    showFirstLabel: false
-                },
-                plotOptions: {
-                    scatter: {
-                        marker: {
-                            radius: 5,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    lineColor: 'rgb(100,100,100)'
-                                }
-                            }
-                        },
-                        states: {
-                            hover: {
-                                marker: {
-                                    enabled: false
-                                }
-                            }
-                        }
-                    },
-                    series: {
-                        stickyTracking: false
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    hideDelay: 100,
-                    formatter: function(chart){
-                        var p = this.point;
-                        return '<p style="font-size:15px; font-weight:bold;">[' + p.name + '] ' + p.word + '</p><br>'
-                                + '<p style="font-size:12px;">x:' + p.x + ', y:' + p.y + ', z:' + p.z + '</p>'
-                                + '<br><p style="font-size:13px;"><br><b>[Similar Words]</b><br></p>'
-                                + '<p style="font-size:12px;">'
-                                + '<br>top1: ' + p.top0
-                                + '<br>top2: ' + p.top1
-                                + '<br>top3: ' + p.top2
-                                + '<br>top4: ' + p.top3
-                                + '<br>top5: ' + p.top4
-                                + '<br>top6: ' + p.top5
-                                + '<br>top7: ' + p.top6
-                                + '<br>top8: ' + p.top7
-                                + '<br>top9: ' + p.top8
-                                + '<br>top10: ' + p.top9 + '</p>'
-                    }                    
-                },
-                series: [{
-                    name: '진보',
-                    color: 'rgba(59, 150, 237, 0.5)',
-                    data: {{left_only_data|safe}}
-
-                }],
-                legend:{
-                    itemStyle:{
-                        fontSize: '18px'
-                    },
-                    floating: true,
-                    backgroundColor: '#FFFFFF'
-                }
-            });
-
-            // Add mouse events for rotation
-            $(left.container).on('mousedown.hc touchstart.hc', function (eStart) {
-                console.log("left chart click\n")
-                eStart = left.pointer.normalize(eStart);
-
-                var posX = eStart.pageX,
-                    posY = eStart.pageY,
-                    alpha = left.options.chart.options3d.alpha,
-                    beta = left.options.chart.options3d.beta,
-                    newAlpha,
-                    newBeta,
-                    sensitivity = 5; // lower is more sensitive
-
-                $(document).on({
-                    'mousemove.hc touchdrag.hc': function (e) {
-                        // Run beta
-                        newBeta = beta + (posX - e.pageX) / sensitivity;
-                        left.options.chart.options3d.beta = newBeta;
-
-                        // Run alpha
-                        newAlpha = alpha + (e.pageY - posY) / sensitivity;
-                        left.options.chart.options3d.alpha = newAlpha;
-
-                        left.redraw(false);
-                    },
-                    'mouseup touchend': function () {
-                        $(document).off('.hc');
-                    }
-                });
-            });
-        </script>
-
-        <hr>
-
-        <!-- Right Chart -->
-        <script type="text/javascript">
-            Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function (color) {
-                return {
-                    radialGradient: {
-                        cx: 0.4,
-                        cy: 0.3,
-                        r: 0.5
-                    },
-                    stops: [
-                        [0, color],
-                        [1, Highcharts.Color(color).brighten(-0.2).get('rgb')]
-                    ]
-                };
-            });
-
-            var right = new Highcharts.Chart('container_right',{
-                chart: {
-                    marginLeft: 100,
-                    marginRight: 100,
-                    marginTop: 120,
-                    marginBottom: 170,
-                    type: 'scatter',
-                    options3d: {
-                        enabled: true,
-                        alpha: 10,
-                        beta: 30,
-                        depth: 600,
-                        viewDistance: 5,
-                        fitToPlot: false,
-                        frame: {
-                            bottom: { size: 1, color: 'rgba(0,0,0,0.02)' },
-                            back: { size: 1, color: 'rgba(0,0,0,0.04)' },
-                            side: { size: 1, color: 'rgba(0,0,0,0.06)' }
-                        }
-                    }
-                },
-                title: {
-                    text: 'Vocabulary Distribution of 보수 진영'
-                },
-                subtitle: {
-                    text: 'Top 100 Frequent words Analysis by Word2Vec'
-                },
-                yAxis: {
-                    title: {
-                        text: "<b>Y-Axis</b>"
-                    }
-                },
-                xAxis: {
-                    title: {
-                        text: "<b>X-Axis</b>"
-                    },
-                    gridLineWidth: 1
-                },
-                zAxis: {
-                    title: {
-                        text: "<b>Z-Axis</b>"
-                    },
-                    showFirstLabel: false
-                },
-                plotOptions: {
-                    scatter: {
-                        marker: {
-                            radius: 5,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    lineColor: 'rgb(100,100,100)'
-                                }
-                            }
-                        },
-                        states: {
-                            hover: {
-                                marker: {
-                                    enabled: false
-                                }
-                            }
-                        }
-                    },
-                    series: {
-                        stickyTracking: false
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    hideDelay: 100,
-                    formatter: function(chart){
-                        var p = this.point;
-                        return '<p style="font-size:15px; font-weight:bold;">[' + p.name + '] ' + p.word + '</p><br>'
-                                + '<p style="font-size:12px;">x:' + p.x + ', y:' + p.y + ', z:' + p.z + '</p>'
-                                + '<br><p style="font-size:13px;"><br><b>[Similar Words]</b><br></p>'
-                                + '<p style="font-size:12px;">'
-                                + '<br>top1: ' + p.top0
-                                + '<br>top2: ' + p.top1
-                                + '<br>top3: ' + p.top2
-                                + '<br>top4: ' + p.top3
-                                + '<br>top5: ' + p.top4
-                                + '<br>top6: ' + p.top5
-                                + '<br>top7: ' + p.top6
-                                + '<br>top8: ' + p.top7
-                                + '<br>top9: ' + p.top8
-                                + '<br>top10: ' + p.top9 + '</p>'
-                    }                    
-                },
-                series: [{
-                    name: '보수',
-                    color: 'rgba(237, 77, 59, 0.5)',
-                    data: {{right_only_data|safe}}
-                }],
-                legend:{
-                    itemStyle:{
-                        fontSize: '18px'
-                    },
-                    floating: true,
-                    backgroundColor: '#FFFFFF'
-                }
-            });
-
-            // Add mouse events for rotation
-            $(right.container).on('mousedown.hc touchstart.hc', function (eStart) {
-                console.log("right chart click\n")
-                eStart = right.pointer.normalize(eStart);
-
-                var posX = eStart.pageX,
-                    posY = eStart.pageY,
-                    alpha = right.options.chart.options3d.alpha,
-                    beta = right.options.chart.options3d.beta,
-                    newAlpha,
-                    newBeta,
-                    sensitivity = 5; // lower is more sensitive
-
-                $(document).on({
-                    'mousemove.hc touchdrag.hc': function (e) {
-                        // Run beta
-                        newBeta = beta + (posX - e.pageX) / sensitivity;
-                        right.options.chart.options3d.beta = newBeta;
-
-                        // Run alpha
-                        newAlpha = alpha + (e.pageY - posY) / sensitivity;
-                        right.options.chart.options3d.alpha = newAlpha;
-
-                        right.redraw(false);
-                    },
-                    'mouseup touchend': function () {
-                        $(document).off('.hc');
-                    }
-                });
-            });
-        </script>
-
-        <hr>
 
         <!-- Footer -->
         <footer>
@@ -591,260 +270,6 @@
     </div>
     <!-- /.container -->
 
-    <script>
-        function resetHandler(){
-            var left_politician = [
-                "김부겸","김성식","김진표","문재인","민병두","박범계","박영선",
-                "박원순","박지원","송영길","안철수","안희정","이재명","정동영",
-                "정세균","진영","천정배","추미애","표창원", "김경진", "주승용",
-                "안민석","이정미","박주민","심상정","김한길"
-            ];
-            var right_politician = [
-                "김무성","김진태","나경원","남경필","서청원","심재철","원유철",
-                "원희룡","이준석","정우택","정진석","최경환","주호영",
-                "하태경","이완영","유승민","황영철","김문수","이혜훈","정병국",
-                "이종구"
-            ];
-            var num;
-            for(num=0;num<left_politician.length;num++){
-                if($("#left-ck-"+num).prop("checked")){
-                    $("#left-btn-"+num).attr('class', 'btn btn-primary btn-block');
-                    $("#left-span-"+num).attr('class', 'glyphicon glyphicon-check');
-                }
-                else{
-                    $("#left-btn-"+num).attr('class', 'btn btn-default btn-block');
-                    $("#left-span-"+num).attr('class', 'glyphicon glyphicon-unchecked');
-                }
-            }
-            for(num=0;num<right_politician.length;num++){
-                if($("#right-ck-"+num).prop("checked")){
-                    $("#right-btn-"+num).attr('class', 'btn btn-primary btn-block');
-                    $("#right-span-"+num).attr('class', 'glyphicon glyphicon-check');
-                }
-                else{
-                    $("#right-btn-"+num).attr('class', 'btn btn-default btn-block');
-                    $("#right-span-"+num).attr('class', 'glyphicon glyphicon-unchecked');
-                }
-            }
-        }
-        $('input[type="reset"]').click(function(evt) {
-            // Prevent the reset button from firing the form's reset event again
-            evt.preventDefault();
-            $(this).closest('form').get(0).reset();
-            // At this point your form's inputs should have their values reset
-            resetHandler();
-        });
-    </script>
-
-    <script>
-        function l_toggle_ck(num){
-            if($("#left-ck-"+num).prop("checked")){
-                document.getElementById("left-ck-"+num).checked = "";
-                $("#left-btn-"+num).attr('class', 'btn btn-default btn-block');
-                $("#left-span-"+num).attr('class', 'glyphicon glyphicon-unchecked');
-            }
-            else{
-                document.getElementById("left-ck-"+num).checked = "checked";
-                $("#left-btn-"+num).attr('class', 'btn btn-primary btn-block');
-                $("#left-span-"+num).attr('class', 'glyphicon glyphicon-check');
-            }
-        }
-        function r_toggle_ck(num){
-            if($("#right-ck-"+num).prop("checked")){
-                document.getElementById("right-ck-"+num).checked = "";
-                $("#right-btn-"+num).attr('class', 'btn btn-default btn-block');
-                $("#right-span-"+num).attr('class', 'glyphicon glyphicon-unchecked');
-            }
-            else{
-                document.getElementById("right-ck-"+num).checked = "checked";
-                $("#right-btn-"+num).attr('class', 'btn btn-primary btn-block');
-                $("#right-span-"+num).attr('class', 'glyphicon glyphicon-check');
-            }
-        }
-    </script>
-
-    <script>
-        function left_all_select(){
-            $('input:checkbox[name="left_btn_list-ck"]').each(function() {
-                this.checked = true; //checked 처리
-                var left_politician = [
-                    "김부겸","김성식","김진표","문재인","민병두","박범계","박영선",
-                    "박원순","박지원","송영길","안철수","안희정","이재명","정동영",
-                    "정세균","진영","천정배","추미애","표창원", "김경진", "주승용",
-                    "안민석","이정미","박주민","심상정","김한길"
-                ];
-                var right_politician = [
-                    "김무성","김진태","나경원","남경필","서청원","심재철","원유철",
-                    "원희룡","이준석","정우택","정진석","최경환","주호영",
-                    "하태경","이완영","유승민","황영철","김문수","이혜훈","정병국",
-                    "이종구"
-                ];
-                var num;
-                for(num=0;num<left_politician.length;num++){
-                    $("#left-btn-"+num).attr('class', 'btn btn-primary btn-block');
-                    $("#left-span-"+num).attr('class', 'glyphicon glyphicon-check');
-                }
-            });
-        }
-    </script>
-    <script>
-        function right_all_select(){
-            $('input:checkbox[name="right_btn_list-ck"]').each(function() {
-                this.checked = true; //checked 처리
-                var left_politician = [
-                    "김부겸","김성식","김진표","문재인","민병두","박범계","박영선",
-                    "박원순","박지원","송영길","안철수","안희정","이재명","정동영",
-                    "정세균","진영","천정배","추미애","표창원", "김경진", "주승용",
-                    "안민석","이정미","박주민","심상정","김한길"
-                ];
-                var right_politician = [
-                    "김무성","김진태","나경원","남경필","서청원","심재철","원유철",
-                    "원희룡","이준석","정우택","정진석","최경환","주호영",
-                    "하태경","이완영","유승민","황영철","김문수","이혜훈","정병국",
-                    "이종구"
-                ];
-                var num;
-                for(num=0;num<right_politician.length;num++){
-                    $("#right-btn-"+num).attr('class', 'btn btn-primary btn-block');
-                    $("#right-span-"+num).attr('class', 'glyphicon glyphicon-check');
-                }
-            });
-        }
-    </script>
-
-    <script>
-        function left_all_unselect(){
-            $('input:checkbox[name="left_btn_list-ck"]').each(function() {
-                this.checked = false; //unchecked 처리
-                var left_politician = [
-                    "김부겸","김성식","김진표","문재인","민병두","박범계","박영선",
-                    "박원순","박지원","송영길","안철수","안희정","이재명","정동영",
-                    "정세균","진영","천정배","추미애","표창원", "김경진", "주승용",
-                    "안민석","이정미","박주민","심상정","김한길"
-                ];
-                var right_politician = [
-                    "김무성","김진태","나경원","남경필","서청원","심재철","원유철",
-                    "원희룡","이준석","정우택","정진석","최경환","주호영",
-                    "하태경","이완영","유승민","황영철","김문수","이혜훈","정병국",
-                    "이종구"
-                ];
-                var num;
-                for(num=0;num<left_politician.length;num++){
-                    $("#left-btn-"+num).attr('class', 'btn btn-default btn-block');
-                    $("#left-span-"+num).attr('class', 'glyphicon glyphicon-unchecked');
-                }
-            });
-        }
-    </script>
-    <script>
-        function right_all_unselect(){
-            $('input:checkbox[name="right_btn_list-ck"]').each(function() {
-                this.checked = false; //unchecked 처리
-                var left_politician = [
-                    "김부겸","김성식","김진표","문재인","민병두","박범계","박영선",
-                    "박원순","박지원","송영길","안철수","안희정","이재명","정동영",
-                    "정세균","진영","천정배","추미애","표창원", "김경진", "주승용",
-                    "안민석","이정미","박주민","심상정","김한길"
-                ];
-                var right_politician = [
-                    "김무성","김진태","나경원","남경필","서청원","심재철","원유철",
-                    "원희룡","이준석","정우택","정진석","최경환","주호영",
-                    "하태경","이완영","유승민","황영철","김문수","이혜훈","정병국",
-                    "이종구"
-                ];
-                var num;
-                for(num=0;num<right_politician.length;num++){
-                    $("#right-btn-"+num).attr('class', 'btn btn-default btn-block');
-                    $("#right-span-"+num).attr('class', 'glyphicon glyphicon-unchecked');
-                }
-            });
-        }
-    </script>
-
-    <script>
-        function submit_list(){
-            // name이 같은 체크박스의 값들을 배열에 담는다.
-            var left = [];
-            var right = [];
-            // button을 input으로 바꾸고 name 설정
-            $("input[name='left_btn_list-ck']:checked").each(function(i) {
-                left.push($(this).val());
-            });
-            $("input[name='right_btn_list-ck']:checked").each(function(i) {
-                right.push($(this).val());
-            });
-
-            if(left.length==0 || right.length==0){
-                alert("진영별 한 명 이상은 선택해야 합니다!");
-            }
-            else{                 
-                // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
-                var allData = { "left": left, "right": right};
-                 
-                $.ajax({
-                    type : "POST",
-                    url : "/checkbox",
-                    data: JSON.stringify(allData, null, '\t'),
-                    contentType: 'application/json;charset=UTF-8',
-                    success: function(result) {
-                        console.log(result);
-                        window.location.reload(true);
-                    }
-                });
-            }
-        }
-    </script>
-    
-    <script>
-        $('#btn-l1').click(function(){
-            $("#btn-l2").removeClass("btn-primary");
-            $("#btn-l2").addClass("btn-default");
-            $("#btn-l3").removeClass("btn-primary");
-            $("#btn-l3").addClass("btn-default");
-            $("#btn-l1").removeClass("btn-default");
-            $("#btn-l1").addClass("btn-primary");
-        });
-        $('#btn-l2').click(function(){
-            $("#btn-l1").removeClass("btn-primary");
-            $("#btn-l1").addClass("btn-default");
-            $("#btn-l3").removeClass("btn-primary");
-            $("#btn-l3").addClass("btn-default");
-            $("#btn-l2").removeClass("btn-default");
-            $("#btn-l2").addClass("btn-primary");
-        });
-        $('#btn-l3').click(function(){
-            $("#btn-l1").removeClass("btn-primary");
-            $("#btn-l1").addClass("btn-default");
-            $("#btn-l2").removeClass("btn-primary");
-            $("#btn-l2").addClass("btn-default");
-            $("#btn-l3").removeClass("btn-default");
-            $("#btn-l3").addClass("btn-primary");
-        });
-        $('#btn-r1').click(function(){
-            $("#btn-r2").removeClass("btn-primary");
-            $("#btn-r2").addClass("btn-default");
-            $("#btn-r3").removeClass("btn-primary");
-            $("#btn-r3").addClass("btn-default");
-            $("#btn-r1").removeClass("btn-default");
-            $("#btn-r1").addClass("btn-primary");
-        });
-        $('#btn-r2').click(function(){
-            $("#btn-r1").removeClass("btn-primary");
-            $("#btn-r1").addClass("btn-default");
-            $("#btn-r3").removeClass("btn-primary");
-            $("#btn-r3").addClass("btn-default");
-            $("#btn-r2").removeClass("btn-default");
-            $("#btn-r2").addClass("btn-primary");
-        });
-        $('#btn-r3').click(function(){
-            $("#btn-r1").removeClass("btn-primary");
-            $("#btn-r1").addClass("btn-default");
-            $("#btn-r2").removeClass("btn-primary");
-            $("#btn-r2").addClass("btn-default");
-            $("#btn-r3").removeClass("btn-default");
-            $("#btn-r3").addClass("btn-primary");
-        });
-    </script>
 
 </body>
 
