@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SNS Mining Project</title>
+    <title>Relation Extraction in Bio Corpus</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
@@ -90,8 +90,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">진영별 사용 단어 분포</h1>
-                <p>정치인들이 많이 사용하는 SNS인 Twitter의 활동 데이터에 대해 텍스트 마이닝을 통해 정치적 상황에 따른 진영별 감정 상태 변화를 분석하는 모델을 개발하고 분석 및 시각화 도구 개발.</p>
+                <h1 class="page-header">Bio Corpus Word Visualization</h1>
+                <p>Word2Vec(3-dim)을 사용한 word embedding 결과를 3차원 공간에 Projection한 결과.</p>
+                <br>
                 <div id="container" style="height: 700px"></div>
             </div>
         </div>
@@ -136,10 +137,10 @@
                     }
                 },
                 title: {
-                    text: 'Vocabulary Distribution'
+                    text: 'Word Distribution'
                 },
                 subtitle: {
-                    text: 'Top 100 Frequent words Analysis by Word2Vec'
+                    text: 'Relation Words embedded by Word2Vec'
                 },
                 yAxis: {
                     title: {
