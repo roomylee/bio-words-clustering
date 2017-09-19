@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, render_template
-from word2vec_clustering import word2vec_module
+from word2vec_module import *
 
 app = Flask(__name__)
 
@@ -32,7 +32,7 @@ def jsonify(module, key_word):
 
 
 def vectorize(corpus_type='full'):
-    module = word2vec_module.word2vec_module(corpus_type)
+    module = word2vec_module(corpus_type)
 
     bacteria, disease, relation = module.get_key_word()
 
