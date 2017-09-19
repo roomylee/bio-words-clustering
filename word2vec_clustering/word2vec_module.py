@@ -2,6 +2,7 @@ import gensim
 import mysql.connector as msc
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
+import os
 
 
 class word2vec_module:
@@ -9,13 +10,13 @@ class word2vec_module:
     def __init__(self, corpus_type='full'):
         try:
             print("Loading a pre-trained model...")
-            self.model = gensim.models.Word2Vec.load('../../%s.model' % corpus_type)
+            self.model = gensim.models.Word2Vec.load(os.path.dirname(__file__)+'/model/%s.model' % corpus_type)
             print("Load success!")
         except:
             print("Pre-trained model not exist!")
             print("Training a word2vec model...")
             self.train(corpus_type)
-            self.model = gensim.models.Word2Vec.load('../../%s.model' % corpus_type)
+            self.model = gensim.models.Word2Vec.load(os.path.dirname(__file__)+'/model/%s.model' % corpus_type)
             print("Training success!")
 
     def query_generator(self, corpus_type):
@@ -58,7 +59,7 @@ class word2vec_module:
         print('Train Data Size :', len(train_docs))
         model = gensim.models.Word2Vec(train_docs, min_count=1, size=3)
 
-        model.save('../../%s.model' % corpus_type)
+        model.save(os.path.dirname(__file__)+'/model/%s.model' % corpus_type)
 
 
     def get_key_word(self):
