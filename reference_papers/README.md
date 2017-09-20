@@ -4,66 +4,12 @@
 * **Relation Extraction: Perspective from Convolutional Neural Networks** (NAACL 2015), TH Nguyen et al. [[review]](#relation-extraction-perspective-from-convolutional-neural-networks) [[pdf]](http://www.cs.nyu.edu/~thien/pubs/vector15.pdf)
 * **Relation Classification via Convolutional Deep Neural Network** (COLING 2014), D Zeng et al. [[review]](#relation-classification-via-convolutional-deep-neural-network) [[pdf]](http://www.aclweb.org/anthology/C14-1220)
 * **Distant supervision for relation extraction without labeled data** (ACL 2009), M Mintz et al. [[review]](#distant-supervision-for-relation-extraction-without-labeled-data) [[pdf]](https://web.stanford.edu/~jurafsky/mintz.pdf)
-* **End-to-End Relation Extraction using LSTMs on Sequences and Tree Structure** (arXiv 2016), M Miwa et al. [[review]](#end-to-end-relation-extraction-using-lstms-on-sequences-and-tree-structure) [[pdf]](https://www.aclweb.org/anthology/P16-1105)
-
+* **End-to-End Relation Extraction using LSTMs on Sequences and Tree Structure** (arXiv 2016), M Miwa et al. [[review]](#end-to-end-relation-extraction-using-lstms-on-sequences-and-tree-structure) [[pdf]](https://arxiv.org/abs/1601.00770)
+* **A Survey of Deep Learning Methods for Relation Extraction** (arXiv 2017), S Kumar [[review]](#a-survey-of-deep-learning-methods-for-relation-extraction) [[pdf]](https://arxiv.org/abs/1705.03645)
+* **Recent Trends in Deep Learning Based Natural Language Processing** (arXiv 2017), T Young et al. [[review]](#recent-trends-in-deep-learning-based-natural-language-processing) [[pdf]](https://arxiv.org/abs/1708.02709)
+* **A simple neural network module for relational reasoning** (arXiv 2017), A Santoro et al. [[review]](#a-simple-neural-network-module-for-relational-reasoning) [[pdf]](https://arxiv.org/abs/1706.01427)
 
 * * *
-
-
-d
-d
-
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-
-d
-d
-
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-
 
 ## Reasoning With Neural Tensor Networks for Knowledge Base Completion
 
@@ -83,87 +29,16 @@ comments.
 
 ## End-to-End Relation Extraction using LSTMs on Sequences and Tree Structure
 
-comment.
+comments.
 
+## A Survey of Deep Learning Methods for Relation Extraction
 
+comments.
 
-d
-d
+## Recent Trends in Deep Learning Based Natural Language Processing
 
+comments.
 
-d
+## A simple neural network module for relational reasoning
 
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-
-d
-d
-
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-
-d
-d
-
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
-d
-
+comments.
