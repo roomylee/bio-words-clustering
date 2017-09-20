@@ -32,7 +32,7 @@ precision / recall을 통한 수치적 성능 보여주기
 	그러면 cause-effect 등의 관계 클래스를 추려낼 수 있음.
 	2. 1번에 이어서, 해당 관계 클래스와 다른 논문에서 사용하는 일반적인 관계 클래스간의 비교를 통해 도메인 디펜던트한 클래스를 추리고 최종 클래스를 정의함.
 	아래와 같은 느낌으로 관계 클래스를 정의함. Examples는 관계 클래스에 포함되는 실제 문장에서의 관계어이다. (Ex. He married to her -> class: Affiliations)
-	![image](/reference_papers/attached_image/170825_relation_example.png)
+	![image](/README_image/170825_relation_example.png)
 	3. 정의한 클래스를 통해 모델을 학습시킨다.
 
 - Extra 2
