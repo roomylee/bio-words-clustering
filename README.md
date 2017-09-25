@@ -2,6 +2,19 @@
 Bio 분야 논문(Abstract)에서 박테리아(Bacteria)와 질병(Disease) 간의 관계를 Deep Learning을 통해 추출해보자!
 
 
+## 170922 Meeting
+* 미팅 내용
+	* Clustering을 더 큰 차원에서 진행하고 그걸 다시 reduction해서 projection하면 Clustering 결과가 더 나아질 것이다.
+	* K means에서 적절한 k 값을 찾는 알고리즘이 있으니 찾아보자.
+	* embedding 결과에서 vector 간의 거리나 방향(각도)에 대한 수치를 활용하여 우리가 찾은 relation을 guarantee할 수 있을 것 같다.
+* 할일
+	* K-means에서 적절한 k값 찾기. silhouette?
+	* plot된 벡터 포인트를 triplet 단위로 연결시켜 보기
+	* 대진님한테 추가 코퍼스 받기
+	* tpe랑 dependency 모델 검색 결과 비교하기
+	* CNN으로 Relation Extraction
+
+
 ## 170901 Meeting
 * 현재 태깅 데이터 300개에 대한 precision / recall은 양쪽(TPE, Dependency Tree) 모두 비슷함. (p=1.0, r=0.8)
 
