@@ -1,6 +1,26 @@
 # Relation Extraction in Bio Corpus
 Bio 분야 논문(Abstract)에서 박테리아(Bacteria)와 질병(Disease) 간의 관계를 Deep Learning을 통해 추출해보자!
 
+## 171018 Idea
+* To do plan
+	1. word embedding to large dimension,
+	2. clustering and result checking
+	3. what is the best k value for K-means algorithm?
+	4. dimension reduction
+	5. entity 3d visualization using plotly
+	6. triplet network 3d visualization using plotly
+* CNN for Relation Extraction
+	* MNIST tutorial sucess! implement baseline structure.
+	* RE project will be starting soon...
+
+
+## 170927 Idea
+* Relation Extraction Corpus
+	* ACE: 17 relations (role, contain, location, family)
+	* UMLS: 134 entity types, 54 relations
+	* Freebase: nationality, contains, profession, place of birth, etc.
+* **Distant Supervision이란, structured data에서 triplet(2-entity, 1-relation)을 추출하고, unstructured data에서 추출한 2-entities를 포함한 문장에 대하여 추출한 relation으로 labeling하여 training data를 생성하는 방법이다.**
+
 
 ## 170922 Meeting
 * 미팅 내용
