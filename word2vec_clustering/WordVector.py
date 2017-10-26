@@ -3,34 +3,35 @@ import os
 
 
 class WordVector:
-    def __init__(self, word, train_corpus=None, dim=100, reset_model=False):
+    def __init__(self, word, train_corpus=None, dim=100):
+        # train_corpus is not None -> Train Again
         self.dim = dim
         self.word = word
-        self.model = self.build_model(train_corpus, reset_model)
+        self.model = self.build_model(train_corpus)
         self.vector = self.model[self.word]
 
-    def build_model(self, corpus, reset):
-        if reset is True:
-            print("Re-Training a word2vec model...")
-            model = self.train(corpus)
-            print("Re-Training success!")
-        else:
+    def build_model(self, corpus):
+        if corpus is None:
             try:
                 print("Loading a pre-trained model...")
-                model = gensim.models.Word2Vec.load(os.path.dirname(__file__)+"/model/bio_word2vec.model")
+                model = gensim.models.Word2Vec.load(os.path.dirname(__file__)+"/model/bio_word2vec_%d_dim.model" % self.dim)
                 print("Load success!")
             except Exception as e:
                 print(e)
                 print("Training a word2vec model...")
                 model = self.train(corpus)
                 print("Training success!")
+        else:
+            print("Training a word2vec model Again...")
+            model = self.train(corpus)
+            print("Training success!")
 
         return model
 
     def train(self, corpus):
         print('Train Data Size :', len(corpus))
         model = gensim.models.Word2Vec(corpus, min_count=1, size=self.dim)
-        model.save(os.path.dirname(__file__)+'/model/bio_word2vec.model')
+        model.save(os.path.dirname(__file__)+"/model/bio_word2vec_%d_dim.model" % self.dim)
 
         return model
 
@@ -46,7 +47,7 @@ if __name__ == '__main__':
     import data_helper
     _, _, relation = data_helper.get_triplet()
     corpus = data_helper.get_corpus()
-    wv = WordVector(relation, corpus)
+    wv = WordVector(relation, corpus, dim=3)
 
     print(wv.word)
     print(wv.vector)
