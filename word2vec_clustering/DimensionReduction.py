@@ -1,22 +1,23 @@
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+import numpy as np
 
 
 class DimensionReduction:
-    def PCA(self, vector):
-        pca = PCA(n_components=3)
+    def PCA(self, vector, dim=3):
+        pca = PCA(n_components=dim)
         result = pca.fit_transform(vector)
 
         print('Explained variation per principal component: {}'.format(pca.explained_variance_ratio_))
-
+        print('Average of Explained variations: {}'.format(np.sum(pca.explained_variance_ratio_)))
         # result = list()
         # for vec in projected_vec:
         #     result.append([format(vec[0], '.4f'), format(vec[1], '.4f'), format(vec[2], '.4f')])
 
         return result
 
-    def TSNE(self, vector):
-        tsne = TSNE(n_components=3, verbose=1)
+    def TSNE(self, vector, dim=3):
+        tsne = TSNE(n_components=dim, verbose=1)
         result = tsne.fit_transform(vector)
 
         # result = list()
