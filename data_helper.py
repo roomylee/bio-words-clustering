@@ -1,13 +1,10 @@
 import mysql.connector as msc
+import db_config
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 
-config = {'host': '***REMOVED***',
-              'port': '***REMOVED***',
-              'user': '***REMOVED***',
-              'password': '***REMOVED***',
-              'database': '***REMOVED***'}
+config = db_config.connection_info
 
 conn = msc.connect(**config)
 qry = conn.cursor(buffered=True)

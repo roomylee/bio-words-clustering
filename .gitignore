@@ -2,3 +2,4 @@
 .ipynb_checkpoints/
 *.model
 *.npy
+*config.py
