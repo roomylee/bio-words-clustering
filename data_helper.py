@@ -11,7 +11,7 @@ qry = conn.cursor(buffered=True)
 
 
 def get_triplet():
-    query = "SELECT Subject, Object, Relation FROM ***REMOVED***.relation"
+    query = "SELECT Subject, Object, Relation FROM relation"
 
     qry.execute(query)
     row = qry.fetchone()
@@ -34,7 +34,7 @@ def get_triplet():
 def get_corpus(corpus_type='full'):
     corpus_dic = {
             # Full Corpus
-            'full': "SELECT sentence FROM bio_corpus",
+            'full': "SELECT sentence FROM sentence",
             # Relation-Contained Corpus
             'relation': 'SELECT SENTENCE_STRING FROM result',
             # Entity-Relation Triplets
