@@ -1,6 +1,19 @@
 # Bio (Relational) Word Clustering
 Bio 분야 논문(Abstract)에서 박테리아(Bacteria)와 질병(Disease) 간의 관계를 나타내는 단어들에 대한 Clustering 분석
 
+
+## 171114 Memo
+* Clustering project
+	* word2vec 차원에 따른 성능 비교
+	* clustering 결과에 frequency 정보 추가
+* triplet visualization
+	* BAC-REL-DIS 간의 edge만 나오도록 수정
+	* vector 값도 실제 word2vec + PCA 값으로 수정
+* (New) cnn for relation extraction
+	* cnn을 이용한 관계추출 프로젝트 시작
+	* 스켈레톤 코드
+
+
 ## 171027 Meeting
 * 미팅내용
 	* Clustering 분석은 나쁘지 않았다.
