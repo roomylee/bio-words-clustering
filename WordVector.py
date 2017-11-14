@@ -10,23 +10,25 @@ class WordVector:
         self.model = self.build_model(train_corpus)
         self.vector = self.model[self.word]
 
-    def build_model(self, train_corpus):
-        try:
-            print("Loading a pre-trained model...")
-            model = gensim.models.Word2Vec.load(os.path.dirname(__file__)+"/model/bio_word2vec_%d_dim_%d.model" % (self.dim, len(train_corpus)))
-            print("Load success!")
-        except Exception as e:
-            print(e)
-            print("Training a word2vec model...")
-            model = self.train(train_corpus)
+    def build_model(self, corpus):
+        if corpus is None:
+            try:
+                print("Loading a pre-trained model...")
+                model = gensim.models.Word2Vec.load(os.path.dirname(__file__)+"/model/bio_word2vec_%d_dim.model" % self.dim)
+                print("Load success!")
+            except Exception:
+                raise
+        else:
+            print("Training a word2vec model Again...")
+            model = self.train(corpus)
             print("Training success!")
 
         return model
 
-    def train(self, train_corpus):
-        print('Train Data Size :', len(train_corpus))
-        model = gensim.models.Word2Vec(train_corpus, min_count=1, size=self.dim)
-        model.save(os.path.dirname(__file__)+"/model/bio_word2vec_%d_dim_%d.model" % (self.dim, len(train_corpus)))
+    def train(self, corpus):
+        print('Train Data Size :', len(corpus))
+        model = gensim.models.Word2Vec(corpus, min_count=1, size=self.dim)
+        model.save(os.path.dirname(__file__)+"/model/bio_word2vec_%d_dim.model" % self.dim)
 
         return model
 
