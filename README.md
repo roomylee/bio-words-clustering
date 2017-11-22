@@ -2,6 +2,21 @@
 Bio 분야 논문(Abstract)에서 박테리아(Bacteria)와 질병(Disease) 간의 관계를 나타내는 단어들에 대한 Clustering 분석
 
 
+## 171120 Meeting
+* Clustering project
+	* Clustering은 이제 끝!
+	* triplet visualization을 보다 효과적으로 할 수 있도록
+	* 이분 그래프 형식으로 하고 bacteria와 disease는 node, relation은 edge가 되도록 설계
+	* 또한 edge를 눌렀을때 edge로 연결된 bacteria/disease에서 또다른 node로 같은 relation을 갖는 node를 찾아서 highlighting.
+* CNN for relation extraction
+	* 데이터 셋이 있는 경우는 상당히 해볼만 하다.
+	* 트레이닝 데이터 셋을 만드는 게 핵심
+	* TPE 등의 검색 모델을 통해서 트레이닝 데이터 셋을 만들어볼 수 있다.
+	* 하지만 문제점은 TPE 검색 결과에 대한 신뢰도가 80% 정도라는 것.
+	* 그리고 TPE 검색 결과에 대해서만 학습시키기에 TPE가 추출하지 못하는 것에 대해 학습이 불가능하다는 것.
+
+
+
 ## 171114 Memo
 * Clustering project
 	* word2vec 차원에 따른 성능 비교
