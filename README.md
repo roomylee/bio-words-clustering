@@ -2,6 +2,16 @@
 Bio 분야 논문(Abstract)에서 박테리아(Bacteria)와 질병(Disease) 간의 관계를 나타내는 단어들에 대한 Clustering 분석
 
 
+## 171208 Meeting
+* 미팅내용
+	* d3 기반 Triplet Visualization tool 완성
+	* [Github: Relation Triplet Visualization](https://github.com/roomylee/relation-triplet-visualization)
+* 할일
+	* viz tool에 Frequency 기반 정보 표기
+	* 선택된 노드와 관련된 실제 문장 서치
+	* 대진님 쪽 새로운 데이터 셋 900개(not sepsis)로 TPE 테스팅
+
+
 ## 171120 Meeting
 * Clustering project
 	* Clustering은 이제 끝!
